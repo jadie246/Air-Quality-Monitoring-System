@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <windows.h>
+
+void air_quality_detector (float pm, float temperature, float co2){
+	if (pm>50.00){
+		printf ("WARNING!!! Particulate Matter!!! Dust causes danger!!! %.2f microgram/m^3\n",pm);
+	}
+	if (temperature <0.00|| temperature >40.00){
+		printf ("WARNING!!! Temperature Matter!!! %.2f degree\n", temperature);
+	}
+	if (co2>1000.00){
+		printf ("WARNING!!! CO2 Matter!!! %.2f ppm\n", co2);
+	}
+}
+
+float sensor_data (float min, float max){
+	float data= min + ((float) rand()/RAND_MAX)* (max-min);
+	return data;
+}
+
+int main (){
+	srand (time (NULL));
+	while (1){
+		float pm= sensor_data (0.00, 200.00);
+		float temperature= sensor_data (-70.00, 100.00);
+		float co2= sensor_data (0.00, 5000.00);
+		air_quality_detector(pm, temperature,co2);
+	Sleep (3000);
+	}
+	return 0;
+}
